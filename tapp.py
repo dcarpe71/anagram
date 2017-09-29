@@ -12,6 +12,16 @@ sys.setdefaultencoding('utf8')
 app = Flask(__name__)
 api = Api(app)
 
+def print_anagram(word_array):
+    searchfile = open("/home/dcv/words", "r")
+    for line in searchfile:
+        print line
+        for val in word_array:
+            if val in line:
+            #if val == line:
+                print val
+    searchfile.close()
+
 class List_dict(Resource):
     def get(self):
         with open("/home/dcv/words","r+") as f:
@@ -21,13 +31,13 @@ class List_dict(Resource):
 	return data
 
 class Anagram_search(Resource):
-	def get(self, source_word):
-		from itertools import permutations
-		import enchant
-		d = enchant.Dict('en_US')
-		anagram_array = [''.join(p) for p in permutations(source_word, len(source_word)) if d.check(''.join(p))== True]
-		#reponse = print_anagrams(anagram_array)
-		return anagram_array
+    def get(self, source_word):
+        from itertools import permutations
+        import enchant
+        d = enchant.Dict('en_US')
+        anagram_array = [''.join(p) for p in permutations(source_word, len(source_word)) if d.check(''.join(p))== True]
+        print_anagram(anagram_array)
+        return anagram_array
        
 api.add_resource(Anagram_search, '/anagram/<string:source_word>')
 api.add_resource(List_dict, '/dictionary')
