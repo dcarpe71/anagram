@@ -25,7 +25,9 @@ class Anagram_search(Resource):
 		from itertools import permutations
 		import enchant
 		d = enchant.Dict('en_US')
-		return [''.join(p) for p in permutations(source_word, len(source_word)) if d.check(''.join(p))== True]
+		anagram_array = [''.join(p) for p in permutations(source_word, len(source_word)) if d.check(''.join(p))== True]
+		#reponse = print_anagrams(anagram_array)
+		return anagram_array
        
 api.add_resource(Anagram_search, '/anagram/<string:source_word>')
 api.add_resource(List_dict, '/dictionary')
