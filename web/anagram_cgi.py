@@ -10,10 +10,7 @@ import sys
 import unicodedata
 
 
-def print_it(word, result_list):
-    
-    # create list
-    #result_list = []
+def get_anagram(word, result_list):
     
     # open the file
     searchfile = open("words", "r")
@@ -40,17 +37,12 @@ def print_it(word, result_list):
 
 form = cgi.FieldStorage() # instantiate only once!
 str1 = form.getfirst('one', 'empty')
-#str2 = form.getfirst('two', 'empty')
 
 # Avoid script injection escaping the user input
 s1 = cgi.escape(str1)
-#s2 = cgi.escape(str2)
-
-#s1sorted = sorted(s1)
-#s2sorted = sorted(s2)
 
 res_list = []
-print_it(s1, res_list)
+get_anagram(s1, res_list)
 
 response = "{anagrams:["
 for r in res_list:
@@ -62,9 +54,5 @@ response = response + "]}"
 print "Content-Type: text/html\n"
 print '<html><body>'
 print '<p>The first submitted string was ', s1, '</p>'
-#print '<p>The second submitted string was ', s2, '</p>'
-#print '<p>The first string sorted is ', s1sorted, '</p>'
-#print '<p>The second string sorted is ', s2sorted, '</p>'
-#print '<p>Are the strings an anagram ', s1sorted == s2sorted, '<p>'
 print '<p>anagrams: ', response, '</p>'
 print '</body></html>'
