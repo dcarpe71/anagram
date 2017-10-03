@@ -15,7 +15,7 @@ api = Api(app)
 def get_anagrams(word, result_list):
     
     # open the file
-    searchfile = open("/home/dcv/words", "r")
+    searchfile = open("/var/www/html/cgi-bin/words", "r")
 
     # sort the word to test
     word_sorted = sorted(word)
@@ -39,7 +39,7 @@ def get_anagrams(word, result_list):
 
 class List_dict(Resource):
     def get(self):
-        with open("/home/dcv/words","r+") as f:
+        with open("/var/www/html/cgi-bin/words","r+") as f:
             data = f.read()
 	f.seek(0)
 
